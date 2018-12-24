@@ -1,7 +1,7 @@
 server:
   port: 8781
 
-#\u6CE8\u518C\u4E2D\u5FC3
+#注册中心
 eureka:
   client:
     serviceUrl:
@@ -12,7 +12,16 @@ spring:
   application:
     name: order-server
 
-  #\u81EA\u5B9A\u4E49\u8D1F\u8F7D\u5747\u8861\u7B56\u7565
+#自定义负载均衡策略
 product-server:
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+#默认optons readtimeout是60，但是由于hystrix默认是1秒超时
+#修改调用超时时间
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 2000
+        readTimeout: 2000

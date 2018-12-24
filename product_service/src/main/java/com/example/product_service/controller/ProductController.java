@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author: Sijie Zhi
@@ -42,6 +43,12 @@ public class ProductController {
      */
     @RequestMapping("/findid")
     public Product findid(@RequestParam("id") int id){
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println("调用的端口号是：>>>>> "+port);
         Product product=productService.findById(id);
         product.setPort(port);
