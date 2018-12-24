@@ -3,6 +3,8 @@ package com.example.product_service.controller;
 import com.example.product_service.domain.Product;
 import com.example.product_service.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,10 +17,14 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/vi/product")
+@PropertySource({"classpath:application.yml"})
 public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Value("${server.port}")
+    private String port;
 
     /**
      * 商品列表
@@ -36,7 +42,10 @@ public class ProductController {
      */
     @RequestMapping("/findid")
     public Product findid(@RequestParam("id") int id){
-        return productService.findById(id);
+        System.out.println("调用的端口号是：>>>>> "+port);
+        Product product=productService.findById(id);
+        product.setPort(port);
+        return product;
     }
 
 
