@@ -1,13 +1,14 @@
 server:
   port: 8771
 
-#注册中心
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+
 #服务名称
 spring:
   application:
     name: product-server
 
+#注册中心
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

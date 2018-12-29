@@ -1,0 +1,25 @@
+server:
+  port: 9000
+#服务名称
+spring:
+  application:
+    name: zuul-server
+
+#注册中心
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+
+zuul:
+  #忽略服务（一般服务都是内网，网关是外网）
+  #ignored-patterns: /*-server/**
+  #自定义路由
+  routes:
+    #把服务order-server 改为zuulgetserver
+    order-server: /zuulgetserver/order/**
+    product-server: /zuulgetserver/product/**
+  #忽略指定的服务
+  ignored-services: order-server,product-server
+

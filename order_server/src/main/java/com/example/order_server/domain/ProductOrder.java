@@ -90,4 +90,17 @@ public class ProductOrder implements Serializable {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
+    @Override
+    public String toString() {
+        return "ProductOrder{" +
+                "id=" + id +
+                ", productName='" + productName + '\'' +
+                ", tradeNo='" + tradeNo + '\'' +
+                ", price=" + price +
+                ", createTime=" + createTime +
+                ", userId=" + userId +
+                ", userName='" + userName + '\'' +
+                '}';
+    }
 }

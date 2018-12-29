@@ -4,6 +4,9 @@ import com.example.order_server.domain.ProductOrder;
 import com.example.order_server.service.ProductClient;
 import com.example.order_server.service.ProductOrderService;
 import com.example.order_server.utils.JsonUtils;
+import org.bouncycastle.math.Primes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -23,7 +26,7 @@ import java.util.UUID;
 public class ProductOrderServiceImpl  implements ProductOrderService {
 //    @Autowired
 //    private RestTemplate restTemplate;
-
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     @Resource
     private ProductClient productClient;
 
@@ -41,9 +44,13 @@ public class ProductOrderServiceImpl  implements ProductOrderService {
 //        String url= String.format("http://%s:%s/api/vi/product/findid?id="+productId, serviceInstance.getHost(),serviceInstance.getPort());
 //        Map<String,Object> map=restTemplate.getForObject(url, Map.class );
 
+        if(userId==1||userId==3){
+            return null;
+        }
+
+        logger.info("order-server save");
         String jsonResult=productClient.findById(productId);
         Map<String,Object> map= JsonUtils.string2Obj(jsonResult,Map.class );
-
         System.out.println("productClient:>>>"+map.get("port"));
         ProductOrder productOrder = new ProductOrder();
         productOrder.setCreateTime(new Date());
@@ -51,6 +58,7 @@ public class ProductOrderServiceImpl  implements ProductOrderService {
         productOrder.setTradeNo(UUID.randomUUID().toString());
         productOrder.setPrice(Integer.parseInt(map.get("price").toString()));
         productOrder.setProductName(map.get("name").toString());
+        System.out.println("productOrder》》》》"+productOrder);
         return productOrder;
     }
 }

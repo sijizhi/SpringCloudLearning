@@ -7,10 +7,15 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 
+
+
 #\u670D\u52A1\u540D\u79F0
 spring:
   application:
     name: order-server
+  redis:
+    host: 47.100.115.31
+    port: 6379
 
 #自定义负载均衡策略
 product-server:
@@ -20,8 +25,27 @@ product-server:
 #默认optons readtimeout是60，但是由于hystrix默认是1秒超时
 #修改调用超时时间
 feign:
+  hystrix:
+    enabled: true
   client:
     config:
       default:
-        connectTimeout: 2000
-        readTimeout: 2000
+        connectTimeout: 3000
+        readTimeout: 3000
+
+# hystrix 超时时间设置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+
+
+#断路器仪表 全局
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

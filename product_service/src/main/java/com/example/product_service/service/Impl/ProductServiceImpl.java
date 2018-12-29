@@ -2,6 +2,8 @@ package com.example.product_service.service.Impl;
 
 import com.example.product_service.domain.Product;
 import com.example.product_service.service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -13,6 +15,7 @@ import java.util.*;
 @Service
 public class ProductServiceImpl implements ProductService {
     private static final Map<Integer, Product> daoMap = new HashMap<>();
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     static {
         Product p1 = new Product(1,"iphonex",9999, 10);
         Product p2 = new Product(2,"冰箱",5342, 19);
@@ -33,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> listProduct() {
-
+        logger.info("product-service list");
         Collection<Product> collection = daoMap.values();
         List<Product> list = new ArrayList<>(collection);
 
@@ -42,6 +45,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product findById(int id) {
+        logger.info("product-service findById");
         return daoMap.get(id);
     }
 }
