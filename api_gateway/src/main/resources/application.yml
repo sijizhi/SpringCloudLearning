@@ -22,4 +22,20 @@ zuul:
     product-server: /zuulgetserver/product/**
   #忽略指定的服务
   ignored-services: order-server,product-server
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
 
+# hystrix 超时时间设置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+
+#默认一秒，如果延时可以稍微设长一点
+ribbon:
+  ReadTimeout: 2000
+  ConnectTimeout: 2000

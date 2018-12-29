@@ -9,13 +9,19 @@ eureka:
 
 
 
-#\u670D\u52A1\u540D\u79F0
+#思杰redis
 spring:
   application:
     name: order-server
   redis:
     host: 47.100.115.31
     port: 6379
+  zipkin:
+    base-url: http://47.100.115.31:9411/
+  #配置采样百分比,开发环境可以设置为1，表示全部，生产就用默认
+  sleuth:
+    sampler:
+      probability: 1
 
 #自定义负载均衡策略
 product-server:
@@ -43,9 +49,12 @@ hystrix:
             timeoutInMilliseconds: 3000
 
 
-#断路器仪表 全局
+#断路器仪表 暴露全部的监控信息
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+
+
+

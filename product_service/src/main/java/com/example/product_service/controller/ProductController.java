@@ -44,11 +44,11 @@ public class ProductController {
     @RequestMapping("/findid")
     public Product findid(@RequestParam("id") int id){
 
-//        try {
-//            TimeUnit.SECONDS.sleep(2);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println("调用的端口号是：>>>>> "+port);
         Product product=productService.findById(id);
         product.setPort(port);
