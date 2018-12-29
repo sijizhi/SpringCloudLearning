@@ -147,29 +147,29 @@
 
 
 	2、SpringCloud的链路追踪组件Sleuth实战
-		简介：讲解分布式链路追踪组件Sleuth实战
+	简介：讲解分布式链路追踪组件Sleuth实战
 
-		1、官方文档
-		http://cloud.spring.io/spring-cloud-static/Finchley.SR1/single/spring-cloud.html#sleuth-adding-project
+	1、官方文档
+	http://cloud.spring.io/spring-cloud-static/Finchley.SR1/single/spring-cloud.html#sleuth-adding-project
 
-		2、什么是Sleuth
-			一个组件，专门用于记录链路数据的开源组件
+	2、什么是Sleuth
+		一个组件，专门用于记录链路数据的开源组件
 
-			[order-service,96f95a0dd81fe3ab,852ef4cfcdecabf3,false]
+		[order-service,96f95a0dd81fe3ab,852ef4cfcdecabf3,false]
 
-			1、第一个值，spring.application.name的值
-			
-			2、第二个值，96f95a0dd81fe3ab ，sleuth生成的一个ID，叫Trace ID，用来标识一条请求链路，一条请求链路中包含一个Trace ID，多个Span ID
-			
-			3、第三个值，852ef4cfcdecabf3、spanid 基本的工作单元，获取元数据，如发送一个http
+		1、第一个值，spring.application.name的值
+		
+		2、第二个值，96f95a0dd81fe3ab ，sleuth生成的一个ID，叫Trace ID，用来标识一条请求链路，一条请求链路中包含一个Trace ID，多个Span ID
+		
+		3、第三个值，852ef4cfcdecabf3、spanid 基本的工作单元，获取元数据，如发送一个http
 
-			4、第四个值：false，是否要将该信息输出到zipkin服务中来收集和展示。
+		4、第四个值：false，是否要将该信息输出到zipkin服务中来收集和展示。
 
-		3、添加依赖
-			<dependency>
-	         <groupId>org.springframework.cloud</groupId>
-	         <artifactId>spring-cloud-starter-sleuth</artifactId>
-	     	</dependency>
+	3、添加依赖
+		<dependency>
+		 <groupId>org.springframework.cloud</groupId>
+		 <artifactId>spring-cloud-starter-sleuth</artifactId>
+		</dependency>
 
 
 
@@ -750,69 +750,69 @@
 	3、Docker仓库、镜像、容器核心知识讲解
 		简介：快速掌握Dokcer基础知识，
 
-		1、概念：
-			Docker 镜像 - Docker images：
-					 容器运行时的只读模板，操作系统+软件运行环境+用户程序
-					 
-					 class User{
-						 private String userName;
-						 private int age;
-					 }
+1、概念：
+	Docker 镜像 - Docker images：
+			 容器运行时的只读模板，操作系统+软件运行环境+用户程序
+			 
+			 class User{
+				 private String userName;
+				 private int age;
+			 }
 
 
-			Docker 容器 - Docker containers：
-					容器包含了某个应用运行所需要的全部环境
-					
-					 User user = new User()
+	Docker 容器 - Docker containers：
+			容器包含了某个应用运行所需要的全部环境
+			
+			 User user = new User()
 
 
-			Docker 仓库 - Docker registeries： 
-					用来保存镜像，有公有和私有仓库，好比Maven的中央仓库和本地私服
-					镜像仓库：	
-					
-					（参考）配置国内镜像仓库：https://blog.csdn.net/zzy1078689276/article/details/77371782
+	Docker 仓库 - Docker registeries： 
+			用来保存镜像，有公有和私有仓库，好比Maven的中央仓库和本地私服
+			镜像仓库：	
+			
+			（参考）配置国内镜像仓库：https://blog.csdn.net/zzy1078689276/article/details/77371782
 
-			对比面向对象的方式
-			Dokcer 里面的镜像 : Java里面的类 Class
-			Docker 里面的容器 : Java里面的对象 Object
-			通过类创建对象，通过镜像创建容器
+	对比面向对象的方式
+	Dokcer 里面的镜像 : Java里面的类 Class
+	Docker 里面的容器 : Java里面的对象 Object
+	通过类创建对象，通过镜像创建容器
 
 
 	4、Docker容器常见命令实战
-		简介：讲解Docker在云服务上的实际应用
-		1、 常用命令（安装部署好Dokcer后，执行的命令是docker开头）,xxx是镜像名称
+	简介：讲解Docker在云服务上的实际应用
+	1、 常用命令（安装部署好Dokcer后，执行的命令是docker开头）,xxx是镜像名称
+		
+		搜索镜像：docker search xxx
+		
+		列出当前系统存在的镜像：docker images
+		
+		拉取镜像：docker pull xxx
+			xxx是具体某个镜像名称(格式 REPOSITORY:TAG)
+			REPOSITORY：表示镜像的仓库源,TAG：镜像的标签
 
-			搜索镜像：docker search xxx
-			
-			列出当前系统存在的镜像：docker images
-			
-			拉取镜像：docker pull xxx
-				xxx是具体某个镜像名称(格式 REPOSITORY:TAG)
-				REPOSITORY：表示镜像的仓库源,TAG：镜像的标签
+		运行一个容器：docker run -d --name "xdclass_mq" -p 5672:5672 -p 15672:15672 rabbitmq:management
+			docker run - 运行一个容器
+			-d 后台运行
+			-p 端口映射
+			rabbitmq:management  (格式 REPOSITORY:TAG)，如果不指定tag，默认使用最新的
+			--name "xxx"
+		
+		列举当前运行的容器：docker ps
 
-			运行一个容器：docker run -d --name "xdclass_mq" -p 5672:5672 -p 15672:15672 rabbitmq:management
-				docker run - 运行一个容器
-				-d 后台运行
-				-p 端口映射
-				rabbitmq:management  (格式 REPOSITORY:TAG)，如果不指定tag，默认使用最新的
-				--name "xxx"
-			
-			列举当前运行的容器：docker ps
+		检查容器内部信息：docker inspect 容器名称
 
-			检查容器内部信息：docker inspect 容器名称
+		删除镜像：docker rmi IMAGE_NAME
+			 强制移除镜像不管是否有容器使用该镜像 增加 -f 参数，
 
-			删除镜像：docker rmi IMAGE_NAME
-				 强制移除镜像不管是否有容器使用该镜像 增加 -f 参数，
+		停止某个容器：docker stop 容器名称
 
-			停止某个容器：docker stop 容器名称
+		启动某个容器：docker start 容器名称
 
-			启动某个容器：docker start 容器名称
-
-			移除某个容器： docker rm 容器名称 （容器必须是停止状态）
+		移除某个容器： docker rm 容器名称 （容器必须是停止状态）
 
 
-		文档：
-			https://blog.csdn.net/permike/article/details/51879578
+	文档：
+		https://blog.csdn.net/permike/article/details/51879578
 
 
 
@@ -821,21 +821,21 @@
 
 
 	5、实战应用之使用Docker部署Nginx服务器
-		简介：讲解使用Docker部署Nginx服务器实战
-		1、获取镜像 
-			docker run (首先会从本地找镜像，如果有则直接启动，没有的话，从镜像仓库拉起，再启动)
+	简介：讲解使用Docker部署Nginx服务器实战
+	1、获取镜像 
+		docker run (首先会从本地找镜像，如果有则直接启动，没有的话，从镜像仓库拉起，再启动)
 
-			docker search nignx
-		2、列举
-			docker images
-		3、拉取
-			docker pull nignx
-		3、启动
-			docker run -d --name "xdclass_nginx" -p 8088:80 nginx
-			docker run -d --name "xdclass_nginx2" -p 8089:80 nginx
-			docker run -d --name "xdclass_nginx3" -p 8090:80 nginx
-		4、访问
-			如果是阿里云服务，记得配置安全组，腾讯云也需要配置，这个就是一个防火墙
+		docker search nignx
+	2、列举
+		docker images
+	3、拉取
+		docker pull nignx
+	3、启动
+		docker run -d --name "xdclass_nginx" -p 8088:80 nginx
+		docker run -d --name "xdclass_nginx2" -p 8089:80 nginx
+		docker run -d --name "xdclass_nginx3" -p 8090:80 nginx
+	4、访问
+		如果是阿里云服务，记得配置安全组，腾讯云也需要配置，这个就是一个防火墙
 
 
 
