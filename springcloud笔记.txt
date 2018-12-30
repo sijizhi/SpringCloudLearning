@@ -21,18 +21,18 @@
 		什么是配置中心：
 			一句话：统一管理配置, 快速切换各个环境的配置
 		
-		相关产品：
-			百度的disconf 
-				地址:https://github.com/knightliao/disconf
-			
-			阿里的diamand
-				地址：https://github.com/takeseem/diamond
+	相关产品：
+		百度的disconf 
+			地址:https://github.com/knightliao/disconf
+		
+		阿里的diamand
+			地址：https://github.com/takeseem/diamond
 
-			springcloud的configs-server:
-				地址：http://cloud.spring.io/spring-cloud-config/
+		springcloud的configs-server:
+			地址：http://cloud.spring.io/spring-cloud-config/
 
 
-		推荐干货文章：http://jm.taobao.org/2016/09/28/an-article-about-config-center/
+	推荐干货文章：http://jm.taobao.org/2016/09/28/an-article-about-config-center/
 
 
 
@@ -40,9 +40,9 @@
 
 	2、SpringCloud的配置中心组件config-server实战
 		简介：讲解SpringCloud配置中心config-server实战
-		1、新建项目，创建config-server
-		2、启动类增加注解
-			@EnableConfigServer
+	1、新建项目，创建config-server
+	2、启动类增加注解
+		@EnableConfigServer
 
 
 
@@ -89,33 +89,33 @@
 			多种访问路径，可以通过启动日志去查看
 			例子 http://localhost:9100/product-service.yml
 
-			/{name}-{profiles}.properties
-			/{name}-{profiles}.yml
-			/{name}-{profiles}.json
-			/{label}/{name}-{profiles}.yml
+	/{name}-{profiles}.properties
+	/{name}-{profiles}.yml
+	/{name}-{profiles}.json
+	/{label}/{name}-{profiles}.yml
 
-			name 服务器名称
-			profile 环境名称，开发、测试、生产
-			lable 仓库分支、默认master分支
+	name 服务器名称
+	profile 环境名称，开发、测试、生产
+	lable 仓库分支、默认master分支
 
 
 
 4、分布式配置中心客户端使用实战
 	简介：微服务里面客户端接入配置中心实战
-		官方文档：http://cloud.spring.io/spring-cloud-config/single/spring-cloud-config.html#_spring_cloud_config_client
-		
-		1、加入依赖
-			 <dependency>
-	            <groupId>org.springframework.cloud</groupId>
-	            <artifactId>spring-cloud-config-client</artifactId>
-	        </dependency>
+官方文档：http://cloud.spring.io/spring-cloud-config/single/spring-cloud-config.html#_spring_cloud_config_client
 
-	     2、修改对应服务的配置文件,把application.yml 改为 bootstrap.yml
-			#指定注册中心地址
-			eureka:
-			  client:
-			    serviceUrl:
-			      defaultZone: http://localhost:8761/eureka/
+1、加入依赖
+	 <dependency>
+		<groupId>org.springframework.cloud</groupId>
+		<artifactId>spring-cloud-config-client</artifactId>
+	</dependency>
+
+2、修改对应服务的配置文件,把application.yml 改为 bootstrap.yml
+#指定注册中心地址
+eureka:
+  client:
+	serviceUrl:
+	  defaultZone: http://localhost:8761/eureka/
 
 			#服务的名称
 			spring:

@@ -80,6 +80,12 @@
             <artifactId>spring-cloud-starter-zipkin</artifactId>
         </dependency>
 
+        <!--从配置中心获取配置信息-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-client</artifactId>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>

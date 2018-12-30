@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  */
 @RestController
 @RequestMapping("/api/v1/product")
-@PropertySource({"classpath:application.yml"})
+@PropertySource({"classpath:bootstrap.yml"})
 public class ProductController {
 
     @Autowired
