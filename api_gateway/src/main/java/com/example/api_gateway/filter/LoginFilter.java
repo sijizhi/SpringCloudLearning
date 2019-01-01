@@ -5,7 +5,6 @@ import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,7 +15,7 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
  * @Author: Sijie Zhi
  * @Date: 2018/12/28 14:05
  */
-@Component
+//@Component
 public class LoginFilter  extends ZuulFilter {
     /**
      * 过滤器类型，前置过滤器
@@ -45,6 +44,8 @@ public class LoginFilter  extends ZuulFilter {
 
         if("/zuulgetserver/product/api/v1/product/list".equalsIgnoreCase(request.getRequestURI())){
             return true;
+        }else{
+            System.out.println("return false~~~~~~ 没有登录");
         }
         return false;
     }

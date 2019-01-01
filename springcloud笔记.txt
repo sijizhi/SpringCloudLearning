@@ -1,145 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-第八章 微服务核心知识分布式配置中心Config实战
-	
-	1、微服务下的分布式配置中心
-		简介：讲解什么是配置中心及使用前后的好处 (画图)
-		什么是配置中心：
-			一句话：统一管理配置, 快速切换各个环境的配置
-		
-	相关产品：
-		百度的disconf 
-			地址:https://github.com/knightliao/disconf
-		
-		阿里的diamand
-			地址：https://github.com/takeseem/diamond
-
-		springcloud的configs-server:
-			地址：http://cloud.spring.io/spring-cloud-config/
-
-
-	推荐干货文章：http://jm.taobao.org/2016/09/28/an-article-about-config-center/
-
-
-
-
-
-	2、SpringCloud的配置中心组件config-server实战
-		简介：讲解SpringCloud配置中心config-server实战
-	1、新建项目，创建config-server
-	2、启动类增加注解
-		@EnableConfigServer
-
-
-
-
-
-
-
-
-
-
-
-	
-	3、使用git服务器结合Config搭建分布式配置中心
-		简介：讲解使用git服务器结合Config搭建分布式配置中心
-
-		1、默认使用git存储配置中心
-			使用git服务器，可以自己搭建gitlab服务器
-			或者使用github、开源中国git、阿里云git
-
-			794666918@qq.com
-			xdclass.net123
-
-			https://gitee.com/waitforxy/config_cloud.git
-
-		2、配置文件添加配置
-			spring:
-			  application:
-			    name: config-server
-			#git配置
-			  cloud:
-			    config:
-			      server:
-			        git:
-			          uri: https://gitee.com/waitforxy/config_cloud
-			          username: 794666918@qq.com
-			          password: xdclass.net123
-			          #超时时间
-			          timeout: 5
-          			  #分支
-          			  default-label: master
-
-
-		3、访问方式（一定要注意语法，如果有问题，会出错）
-			多种访问路径，可以通过启动日志去查看
-			例子 http://localhost:9100/product-service.yml
-
-	/{name}-{profiles}.properties
-	/{name}-{profiles}.yml
-	/{name}-{profiles}.json
-	/{label}/{name}-{profiles}.yml
-
-	name 服务器名称
-	profile 环境名称，开发、测试、生产
-	lable 仓库分支、默认master分支
-
-
-
-4、分布式配置中心客户端使用实战
-	简介：微服务里面客户端接入配置中心实战
-官方文档：http://cloud.spring.io/spring-cloud-config/single/spring-cloud-config.html#_spring_cloud_config_client
-
-1、加入依赖
-	 <dependency>
-		<groupId>org.springframework.cloud</groupId>
-		<artifactId>spring-cloud-config-client</artifactId>
-	</dependency>
-
-2、修改对应服务的配置文件,把application.yml 改为 bootstrap.yml
-#指定注册中心地址
-eureka:
-  client:
-	serviceUrl:
-	  defaultZone: http://localhost:8761/eureka/
-
-			#服务的名称
-			spring:
-			  application:
-			    name: product-service
-			  #指定从哪个配置中心读取
-			  cloud:
-			    config:
-			      discovery:
-			        service-id: CONFIG-SERVER
-			        enabled: true
-			      profile: test
-			      #建议用lable去区分环境，默认是lable是master分支
-			      #label: test
-
-		注意点：
-			1.配置文件要用bootstrap.yml
-			2.默认读取文件名是 服务名称
-
-
-
-
-
-
 第九章 微服务消息总线Bus结合消息队列RabbitMQ实战
 
 	1、消息总线Bus介绍和使用场景
@@ -223,17 +81,17 @@ eureka:
 			
 			1、config-client加入依赖
 						   
-		        <!--配置中心结合消息队列-->
-		       
-		        <dependency>
-		            <groupId>org.springframework.boot</groupId>
-		            <artifactId>spring-boot-starter-actuator</artifactId>
-		        </dependency>
+	<!--配置中心结合消息队列-->
+   
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-actuator</artifactId>
+	</dependency>
 
-		        <dependency>
-		            <groupId>org.springframework.cloud</groupId>
-		            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
-		        </dependency>
+	<dependency>
+		<groupId>org.springframework.cloud</groupId>
+		<artifactId>spring-cloud-starter-bus-amqp</artifactId>
+	</dependency>
 
 
 			
@@ -275,20 +133,20 @@ eureka:
 	简介：把课程项目改造成配置中心讲解
 
 	1、git里面新增对应项目的配置文件，都要添加下面的配置
-		#服务的名称
-		spring:
-		  rabbitmq:
-		    host: localhost
-		    port: 5672
-		    username: guest
-		    password: guest
+	#服务的名称
+	spring:
+	  rabbitmq:
+		host: localhost
+		port: 5672
+		username: guest
+		password: guest
 
-		#暴露全部的监控信息
-		management:
-		  endpoints:
-		    web:
-		      exposure:
-		        include: "*"
+	#暴露全部的监控信息
+	management:
+	  endpoints:
+		web:
+		  exposure:
+			include: "*"
 
 
 	

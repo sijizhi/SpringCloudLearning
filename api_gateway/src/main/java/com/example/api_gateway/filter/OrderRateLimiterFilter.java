@@ -5,7 +5,6 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,7 +13,7 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
 /**
  * 订单限流
  */
-@Component
+//@Component
 public class OrderRateLimiterFilter extends ZuulFilter {
 
 
@@ -43,6 +42,8 @@ public class OrderRateLimiterFilter extends ZuulFilter {
         //只对订单接口限流
         if ("/apigateway/order/api/v1/order/save".equalsIgnoreCase(request.getRequestURI())){
             return true;
+        }else {
+            System.out.println("return false ----限流没过");
         }
         return false;
     }

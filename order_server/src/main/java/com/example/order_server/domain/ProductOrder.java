@@ -33,7 +33,25 @@ public class ProductOrder implements Serializable {
     private int userId;
 
     private String userName;
+    private String port;
 
+    private String dev;
+
+    public String getPort() {
+        return port;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
+    }
+
+    public String getDev() {
+        return dev;
+    }
+
+    public void setDev(String dev) {
+        this.dev = dev;
+    }
 
     public int getUserId() {
         return userId;

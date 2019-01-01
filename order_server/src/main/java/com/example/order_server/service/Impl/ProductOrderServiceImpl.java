@@ -4,14 +4,11 @@ import com.example.order_server.domain.ProductOrder;
 import com.example.order_server.service.ProductClient;
 import com.example.order_server.service.ProductOrderService;
 import com.example.order_server.utils.JsonUtils;
-import org.bouncycastle.math.Primes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -58,6 +55,8 @@ public class ProductOrderServiceImpl  implements ProductOrderService {
         productOrder.setTradeNo(UUID.randomUUID().toString());
         productOrder.setPrice(Integer.parseInt(map.get("price").toString()));
         productOrder.setProductName(map.get("name").toString());
+        productOrder.setPort(map.get("port").toString());
+        productOrder.setDev(map.get("dev").toString());
         System.out.println("productOrder》》》》"+productOrder);
         return productOrder;
     }

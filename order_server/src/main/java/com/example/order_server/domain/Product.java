@@ -1,13 +1,13 @@
-package com.example.product_service.domain;
+package com.example.order_server.domain;
 
 import java.io.Serializable;
 
 public class Product implements Serializable {
 
 
-    public  Product(){ }
+    public Product(){ }
 
-    public  Product(int id, String name, int price, int store){
+    public Product(int id, String name, int price, int store){
         this.id = id;
         this.name = name;
         this.price = price;
