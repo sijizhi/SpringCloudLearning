@@ -30,6 +30,7 @@ public class OrderController {
     @RequestMapping("save")
     @HystrixCommand(fallbackMethod = "saveOrderFail")
     public Object save(@RequestParam("user_id")int userId, @RequestParam("product_id") int productId, HttpServletRequest request){
+
         return new ResultData(200,"服务间通讯成功",productOrderService.save(userId, productId) );
     }
 
