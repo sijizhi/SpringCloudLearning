@@ -1,0 +1,29 @@
+server:
+  port: 9100
+#注册中心
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+
+#服务名称
+spring:
+  application:
+    name: config-server
+  #config配置获取
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/zhisijie/cloud_configs.git
+          username: 754761240@qq.com
+          password: Sijie#01
+          timeout: 5
+          #默认使用分支是master
+          default-label: master
+
+
+
