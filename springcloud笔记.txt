@@ -266,6 +266,7 @@
 				EXPOSE 8080 暴露镜像端口
 			2、构建镜像
 			mvn install dockerfile:build
+
 			打标签
 			docker tag a1b9fc71720d registry.cn-shenzhen.aliyuncs.com/xdclass/xdclass_images:docker-demo-v201808
 			推送到镜像仓库
