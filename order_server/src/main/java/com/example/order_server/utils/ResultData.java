@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 
 /**
- *
  * @Author: Sijie Zhi
  * @Date: 2018/12/19 11:04
  */

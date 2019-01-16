@@ -32,28 +32,30 @@ public class ProductController {
 
     /**
      * 商品列表
+     *
      * @return
      */
     @RequestMapping("/list")
-    public List<Product> list(){
+    public List<Product> list() {
         return productService.listProduct();
     }
 
     /**
      * 单个商品
+     *
      * @param id
      * @return
      */
     @RequestMapping("/findid")
-    public Product findid(@RequestParam("id") int id){
+    public Product findid(@RequestParam("id") int id) {
 
 //        try {
 //            TimeUnit.SECONDS.sleep(8);
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-        System.out.println("调用的端口号是：>>>>> "+port);
-        Product product=productService.findById(id);
+        System.out.println("调用的端口号是：>>>>> " + port);
+        Product product = productService.findById(id);
         product.setPort(port);
         product.setDev(dev);
 

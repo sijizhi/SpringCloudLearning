@@ -27,32 +27,33 @@ public class OrderController {
 
     @Resource
     private RedisClient redisClient;
+
     @RequestMapping("save")
     @HystrixCommand(fallbackMethod = "saveOrderFail")
-    public Object save(@RequestParam("user_id")int userId, @RequestParam("product_id") int productId, HttpServletRequest request){
+    public Object save(@RequestParam("user_id") int userId, @RequestParam("product_id") int productId, HttpServletRequest request) {
 
-        return new ResultData(200,"服务间通讯成功",productOrderService.save(userId, productId) );
+        return new ResultData(200, "服务间通讯成功", productOrderService.save(userId, productId));
     }
 
     //方法名 必须一致
-    public Object saveOrderFail(int userId, int productId, HttpServletRequest request){
-        final  String redisKey="order:save-order";
-        String keyValue=redisClient.get(redisKey);
+    public Object saveOrderFail(int userId, int productId, HttpServletRequest request) {
+        final String redisKey = "order:save-order";
+        String keyValue = redisClient.get(redisKey);
 
         //模拟发现短信通知
-        new Thread(()->{
-            if(StringUtils.isEmpty(keyValue)) {
-                String ip=request.getRemoteAddr();
-                StringBuffer url=request.getRequestURL();
-                String uri=request.getRequestURI();
-                System.out.println("短信提示：order:save-order服务出现问题，请及时修复！ip》 "+ip+" url>"+url+" uri>"+uri);
-                redisClient.set(redisKey,"order:save-order服务出现问题，请及时修复！" ,20 );
-            }else {
+        new Thread(() -> {
+            if (StringUtils.isEmpty(keyValue)) {
+                String ip = request.getRemoteAddr();
+                StringBuffer url = request.getRequestURL();
+                String uri = request.getRequestURI();
+                System.out.println("短信提示：order:save-order服务出现问题，请及时修复！ip》 " + ip + " url>" + url + " uri>" + uri);
+                redisClient.set(redisKey, "order:save-order服务出现问题，请及时修复！", 20);
+            } else {
                 System.out.println("短信已发送，20秒后再次发送");
             }
         }).start();
 
 
-        return new ResultData(400,"对不起，商品访问人数过多，请稍后再试" );
+        return new ResultData(400, "对不起，商品访问人数过多，请稍后再试");
     }
 }

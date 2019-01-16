@@ -19,7 +19,7 @@ public class ProductOrder implements Serializable {
     /**
      * 订单号
      */
-    private  String tradeNo;
+    private String tradeNo;
 
     /**
      * 价格,分

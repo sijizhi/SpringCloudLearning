@@ -31,7 +31,6 @@ public class OrderRateLimiterFilter extends ZuulFilter {
     }
 
 
-
     @Override
     public boolean shouldFilter() {
 
@@ -40,9 +39,9 @@ public class OrderRateLimiterFilter extends ZuulFilter {
         HttpServletRequest request = requestContext.getRequest();
 
         //只对订单接口限流
-        if ("/apigateway/order/api/v1/order/save".equalsIgnoreCase(request.getRequestURI())){
+        if ("/apigateway/order/api/v1/order/save".equalsIgnoreCase(request.getRequestURI())) {
             return true;
-        }else {
+        } else {
             System.out.println("return false ----限流没过");
         }
         return false;
@@ -50,19 +49,19 @@ public class OrderRateLimiterFilter extends ZuulFilter {
 
     /**
      * 处理
+     *
      * @return
      * @throws ZuulException
      */
     @Override
     public Object run() throws ZuulException {
         RequestContext requestContext = RequestContext.getCurrentContext();
-        if(!RATE_LIMITER.tryAcquire()){
+        if (!RATE_LIMITER.tryAcquire()) {
             requestContext.setSendZuulResponse(false);
             requestContext.setResponseStatusCode(HttpStatus.TOO_MANY_REQUESTS.value());
         }
         return null;
     }
-
 
 
 }

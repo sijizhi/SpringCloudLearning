@@ -20,8 +20,8 @@ import java.util.UUID;
  * @Date: 2018/12/24 9:40
  */
 @Service
-public class ProductOrderServiceImpl  implements ProductOrderService {
-//    @Autowired
+public class ProductOrderServiceImpl implements ProductOrderService {
+    //    @Autowired
 //    private RestTemplate restTemplate;
     private final Logger logger = LoggerFactory.getLogger(getClass());
     @Resource
@@ -29,6 +29,7 @@ public class ProductOrderServiceImpl  implements ProductOrderService {
 
     @Autowired
     private LoadBalancerClient loadBalancerClient;
+
     @Override
     public ProductOrder save(int userId, int productId) {
 
@@ -41,14 +42,14 @@ public class ProductOrderServiceImpl  implements ProductOrderService {
 //        String url= String.format("http://%s:%s/api/vi/product/findid?id="+productId, serviceInstance.getHost(),serviceInstance.getPort());
 //        Map<String,Object> map=restTemplate.getForObject(url, Map.class );
 
-        if(userId==1||userId==3){
+        if (userId == 1 || userId == 3) {
             return null;
         }
 
         logger.info("order-server save");
-        String jsonResult=productClient.findById(productId);
-        Map<String,Object> map= JsonUtils.string2Obj(jsonResult,Map.class );
-        System.out.println("productClient:>>>"+map.get("port"));
+        String jsonResult = productClient.findById(productId);
+        Map<String, Object> map = JsonUtils.string2Obj(jsonResult, Map.class);
+        System.out.println("productClient:>>>" + map.get("port"));
         ProductOrder productOrder = new ProductOrder();
         productOrder.setCreateTime(new Date());
         productOrder.setUserId(userId);
@@ -57,7 +58,7 @@ public class ProductOrderServiceImpl  implements ProductOrderService {
         productOrder.setProductName(map.get("name").toString());
         productOrder.setPort(map.get("port").toString());
         productOrder.setDev(map.get("dev").toString());
-        System.out.println("productOrder》》》》"+productOrder);
+        System.out.println("productOrder》》》》" + productOrder);
         return productOrder;
     }
 }

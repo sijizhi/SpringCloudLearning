@@ -70,8 +70,8 @@
 
         <!--链路追踪-->
         <!--<dependency>-->
-            <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-starter-sleuth</artifactId>-->
+        <!--<groupId>org.springframework.cloud</groupId>-->
+        <!--<artifactId>spring-cloud-starter-sleuth</artifactId>-->
         <!--</dependency>-->
 
         <!--zipkin 分布式系统APM工具，包含了sleuth-->
