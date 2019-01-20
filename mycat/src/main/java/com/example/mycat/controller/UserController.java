@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/testMycat")
-    public List<User> allUsers(HttpServletRequest request, String companyName){
+    public List<User> allUsers(){
         List<User> list=new ArrayList<>();
         try {
             list=userService.allUsers();
@@ -30,5 +29,11 @@ public class UserController {
         }
 
         return  list;
+    }
+
+    @RequestMapping("/addUser")
+    public User addUser(User user)throws Exception{
+
+        return userService.add(user);
     }
 }

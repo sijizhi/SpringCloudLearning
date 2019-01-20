@@ -25,7 +25,7 @@ public class SqlInterceptor  implements Interceptor {
     private static final String afterState="*/";
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        System.out.println(" DbUtils.getDbName()=====>获取前");
+        System.out.println(" DbUtils.getDbName()=====>��ȡǰ");
         StatementHandler statementHandler=(StatementHandler)invocation.getTarget();
         MetaObject metaStatementHandler= SystemMetaObject.forObject(statementHandler);
         String sql=(String)metaStatementHandler.getValue("delegate.boundSql.sql");
