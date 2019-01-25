@@ -10,4 +10,23 @@
       VALUES(documentId,#{title},#{departId},#{doc_uuid},#{levelId},#{userId})
     </insert>
 
+    <!--
+
+        select *  from T_document_copy1 doc
+        join T_User_copy1 u on doc.user_Id=u.user_Id
+        join T_depart_copy1 d on doc.depart_Id=d.depart_id
+        where
+        level_Id in (${str})
+
+    -->
+
+    <select id="listDocument" resultType="document">
+        select * from T_document doc
+        join T_User u on doc.userId=u.userId
+        join T_depart d on doc.departId=d.departid
+        where
+        levelId in (${str})
+     </select>
+
+
 </mapper>
