@@ -11,4 +11,5 @@ import java.util.List;
 public interface UserMapper {
     public List<User> allUsers();
     public int  addUser(User user);
+    public User testDataNode(User user);
 }

@@ -21,11 +21,11 @@ import java.util.Properties;
                 args = {Connection.class,Integer.class})})
 public class SqlInterceptor  implements Interceptor {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    private static final String preState="/*!mycat:datanode=";
+    private static final String preState="/*!mycat:schema=";
     private static final String afterState="*/";
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        System.out.println(" DbUtils.getDbName()=====>»ñÈ¡Ç°");
+        System.out.println(" DbUtils.getDbName()=====>get  before");
         StatementHandler statementHandler=(StatementHandler)invocation.getTarget();
         MetaObject metaStatementHandler= SystemMetaObject.forObject(statementHandler);
         String sql=(String)metaStatementHandler.getValue("delegate.boundSql.sql");

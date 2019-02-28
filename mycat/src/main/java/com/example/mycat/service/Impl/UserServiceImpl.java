@@ -33,4 +33,9 @@ public class UserServiceImpl implements UserService {
      //   int i=1/0;
         return user;
     }
+
+    @Override
+    public User testDataNode(User user) throws Exception {
+        return userMapper.testDataNode(user);
+    }
 }

@@ -36,4 +36,11 @@ public class UserController {
 
         return userService.add(user);
     }
+
+    @RequestMapping("/testDataNode")
+    public User testDataNode(User user)throws Exception{
+        System.out.println(user);
+        return userService.testDataNode(user);
+    }
+
 }
