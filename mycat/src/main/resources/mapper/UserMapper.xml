@@ -17,8 +17,8 @@
     </insert>
 
     <insert id="testDataNode" parameterType="user" >
-        insert into testDataNode values (id,#{name})
-        <selectKey resultType="user" keyProperty="id" order="AFTER">
+        insert into testDataNode(id,name) values (id,#{name})
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
             select last_insert_id()
         </selectKey>
     </insert>
