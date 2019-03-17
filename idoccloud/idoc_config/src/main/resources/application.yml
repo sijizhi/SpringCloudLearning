@@ -1,0 +1,29 @@
+server:
+  port: 8100
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8000/eureka/
+#      defaultZone: http://172.26.253.106:8761/eureka/
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+    # 心跳时间，即服务续约间隔时间（默认为30s）
+    lease-renewal-interval-in-seconds: 5
+    # 发呆时间，即服务续约到期时间（默认为30s）
+    lease-expiration-duration-in-seconds: 10
+  healthcheck:
+    # 开启健康检查（依赖spring-boot-starter-actuator）
+    enabled: true
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/zhisijie/idoc_config
+          username: 754761240@qq.com
+          password: Sijie#01
+          timeout: 5
+          default-label: master

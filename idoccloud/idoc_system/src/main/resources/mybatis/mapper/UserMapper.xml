@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--author： Zhi siJie -->
+<mapper namespace="com.tongfu.idoccloud.system.mapper.UserMapper">
+    <!--登录 -->
+    <select id="login" resultType="user" parameterType="user">
+        SELECT
+            user_Id,
+            chinese_Name,
+            english_Name,
+            user_code,
+            password
+        FROM
+            USER
+        WHERE
+            user_code = #{userCode}
+    </select>
+
+
+</mapper>
