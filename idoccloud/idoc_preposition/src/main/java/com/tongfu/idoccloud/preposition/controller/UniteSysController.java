@@ -2,22 +2,20 @@ package com.tongfu.idoccloud.preposition.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.rabbitmq.tools.json.JSONUtil;
+import com.tongfu.idoccloud.preposition.entity.LoggerEntity;
 import com.tongfu.idoccloud.preposition.entity.User;
 import com.tongfu.idoccloud.preposition.enums.ResponseEnums;
 import com.tongfu.idoccloud.preposition.feign.system.SystemFeign;
-import com.tongfu.idoccloud.preposition.utils.CookieUtil;
-import com.tongfu.idoccloud.preposition.utils.JsonUtil;
+import com.tongfu.idoccloud.preposition.service.LoggerService;
+import com.tongfu.idoccloud.preposition.task.LoggerAsync;
 import com.tongfu.idoccloud.preposition.utils.ResponseUtil;
 import com.tongfu.idoccloud.preposition.vo.ResponseVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
@@ -31,17 +29,16 @@ public class UniteSysController {
 
     Logger logger= LoggerFactory.getLogger(this.getClass());
 
-
     @RequestMapping(value = "/test")
     public String test(String usercode){
 
         return "测试成功:usercode>>"+usercode;
     }
 
-
-
     @Autowired
     private SystemFeign systemFeign;
+    @Autowired
+    private LoggerService loggerService;
 
     /**
      *登录接口
@@ -50,8 +47,20 @@ public class UniteSysController {
      */
     @PostMapping("/usr/login")
     public ResponseVO login(User user){
-        user=systemFeign.login(user,user.getDb_name());
-        System.out.println(user.getDb_name());
+        LoggerEntity loggerEntity=new LoggerEntity();
+        loggerEntity.setRequestApi("/uniteapi/sys/v1/usr/login");
+        loggerEntity.setRequestService("system-service");
+        loggerEntity.setUserIp(user.getIp());
+        loggerEntity.setOperation("login");
+        user=systemFeign.login(user.getUserCode(),
+                user.getPassword(),
+                user.getDb_name());
+        if(!StringUtils.isEmpty(user.getUserId())){
+            loggerEntity.setUserId(user.getUserId());
+            loggerEntity.setDepartId(user.getDepartId());
+            loggerEntity.setUserName(user.getChineseName());
+            loggerService.addOperation(loggerEntity);
+        }
         return ResponseUtil.success(user);
     }
 
@@ -67,7 +76,9 @@ public class UniteSysController {
         //检测密码
         if(operation.equals("checkPassword")){
             User user=JSON.parseObject(JSONArray.toJSONString(map),User.class);
-            return ResponseUtil.success(systemFeign.checkPassword(user,user.getDb_name()));
+            return ResponseUtil.success(systemFeign.checkPassword(user.getUserCode(),
+                    user.getPassword(),
+                    user.getIdoc_token()));
         }
         return ResponseUtil.error(ResponseEnums.ERROR);
     }

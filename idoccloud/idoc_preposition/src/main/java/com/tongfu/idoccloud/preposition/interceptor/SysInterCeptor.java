@@ -1,9 +1,11 @@
-package com.tongfu.idoccloud.system.interceptor;
+package com.tongfu.idoccloud.preposition.interceptor;
 
-import com.tongfu.idoccloud.system.entity.User;
-import com.tongfu.idoccloud.system.utils.DbUtil;
-
-import com.tongfu.idoccloud.system.utils.JwtUtil;
+import com.tongfu.idoccloud.preposition.entity.LoggerEntity;
+import com.tongfu.idoccloud.preposition.entity.User;
+import com.tongfu.idoccloud.preposition.service.LoggerService;
+import com.tongfu.idoccloud.preposition.task.LoggerAsync;
+import com.tongfu.idoccloud.preposition.utils.DbUtil;
+import com.tongfu.idoccloud.preposition.utils.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,21 +13,27 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.InetAddress;
+import java.util.concurrent.Future;
 
 /**
- * @Author: SiJie Zhi
- * @Date: 2018/9/22 21:16
+ * 系统管理拦截
+ * @Author: Sijie Zhi
+ * @Date: 2019/3/19 10:21
  */
-public class DbInterceptor implements HandlerInterceptor {
+public class SysInterCeptor implements HandlerInterceptor {
     private Logger logger= LoggerFactory.getLogger(this.getClass());
     @Autowired
     private JwtUtil jwtUtil;
+    @Autowired
+    private LoggerService loggerService;
+
 
     /**
-     * 进入ctroller之前执行
+     * 进入控制层之前执行
      * @param request
      * @param response
      * @param handler
@@ -38,22 +46,41 @@ public class DbInterceptor implements HandlerInterceptor {
 
         InetAddress address = InetAddress.getLocalHost();
         System.out.println("===============before ctroller=============="+address);
+        String uri=request.getRequestURI();
         String db_name=request.getParameter("db_name");
         String idoc_token=request.getParameter("idoc_token");
-
+        String operation=request.getParameter("operation");
+        String ip=request.getParameter("ip");
+        //日志参数
+        LoggerEntity loggerEntity=new LoggerEntity();
+        loggerEntity.setRequestApi(uri);
+        loggerEntity.setRequestService("system-service");
+        loggerEntity.setUserIp(ip);
+        if(!StringUtils.isEmpty(operation)){
+            loggerEntity.setOperation(operation);
+        }
         if(!StringUtils.isEmpty(idoc_token)){
             User user = jwtUtil.decode(idoc_token, User.class);
+            loggerEntity.setUserId(user.getUserId());
+            loggerEntity.setDepartId(user.getDepartId());
+            loggerEntity.setUserName(user.getChineseName());
             db_name=user.getDb_name();
         }
         if(StringUtils.isEmpty(db_name)){
             return  false;
         }
         DbUtil.setDbName(db_name);
+        //执行添加日志(登录日志是成功后添加）
+        if(!uri.equals("/uniteapi/sys/v1/usr/login")){
+            loggerService.addOperation(loggerEntity);
+        }
+
         return HandlerInterceptor.super.preHandle(request, response,handler );
     }
 
+
     /**
-     * 调用controller之后，页面渲染前执行
+     *  调用controller之后，页面渲染前执行
      * @param request
      * @param response
      * @param handler

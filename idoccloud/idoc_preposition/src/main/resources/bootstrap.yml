@@ -4,6 +4,16 @@ server:
     uri-encoding: UTF-8
     max-threads: 1000
     max-connections: 20000
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8000/eureka/
+  #      defaultZone: http://39.98.206.180:8761/eureka/
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+
+
 spring:
   application:
     name: preposition-service
@@ -22,6 +32,29 @@ spring:
     port: 5672
     username: guest
     password: guest
+  #mysql connetion
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://39.98.208.176:8066
+    password: 123456
+    username: root
+    tomcat:
+      #连接池空闲连接的有效时间 ，设置30分钟
+      min-evictable-idle-time-millis: 1800000
+  #druid pool standard config
+  druid:
+    max-active: 300
+    initial-size: 3
+    min-idle: 3
+    max-wait: 12000
+    time-between-eviction-runs-millis: 60000
+    min-evictable-idle-time-millis: 30000
+    pool-prepared-statements: true
+
+    validation-query: select 1 from dual
+    test-while-idle: true
+    test-on-borrow: false
+    test-on-return: false
   redis:
     host: 39.98.206.180
     port: 6379
@@ -40,14 +73,7 @@ management:
       exposure:
         include: "*"
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8000/eureka/
-#      defaultZone: http://39.98.206.180:8761/eureka/
-  instance:
-    instance-id: ${spring.cloud.client.ip-address}:${server.port}
-    prefer-ip-address: true
+
 
 #默认optons readtimeout是60，但是由于hystrix默认是1秒超时
 #修改调用超时时间
@@ -80,5 +106,10 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 12000 #timeout ms
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: com.tongfu.idoccloud.preposition.entity
+  config-location: classpath:mybatis/mybatis-config.xml
 
-
+jwt:
+  secret: tongfu.secret.#!$@%&^%%#!$@%$%^%&^*&GRGEWRT@#@!$T$%GSDFDSFGQWERQGREWH$%#$@#$!@RFSADGEW$T@$!@#REGSDFSDAF

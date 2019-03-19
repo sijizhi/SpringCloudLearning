@@ -34,7 +34,7 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
  */
 
 @Component
-public class LoginFilter extends ZuulFilter {
+public class AuthFilter extends ZuulFilter {
     private Logger logger= LoggerFactory.getLogger(this.getClass());
     @Autowired
     private JwtUtil jwtUtil;
@@ -73,7 +73,8 @@ public class LoginFilter extends ZuulFilter {
         //登录接口放行
        if ((url+"/sys/v1/usr/login").equalsIgnoreCase(request.getRequestURI())) {
            String db_name=request.getParameter("db_name");
-           if(StringUtils.isEmpty(db_name)){
+           String ip=request.getParameter("ip");
+           if(StringUtils.isEmpty(db_name)||StringUtils.isEmpty(ip)){
                return true;
            }
             return false;
@@ -98,8 +99,9 @@ public class LoginFilter extends ZuulFilter {
         if ((url+"/sys/v1/usr/login").equalsIgnoreCase(request.getRequestURI())) {
             //token对象
             String db_name = request.getHeader("db_name");
-            if(StringUtils.isEmpty(db_name)){
-                logger.error("doLogin ->db_name can't null,please check the front-end code");
+            String ip = request.getParameter("ip");
+            if(StringUtils.isEmpty(db_name)||StringUtils.isEmpty(ip)){
+                logger.error("doLogin ->db_name ip can't null,please check the front-end code");
                 //没有客户端数据库，禁止访问
                 requestContext.setSendZuulResponse(false);
                 requestContext.setResponseStatusCode(HttpStatus.UNAUTHORIZED.value());
@@ -107,11 +109,11 @@ public class LoginFilter extends ZuulFilter {
         }else{
             //token对象
             String idoc_token = request.getHeader("idoc_token");
+            String ip = request.getParameter("ip");
             //获取操作
             String operation = request.getParameter("operation");
             //一层鉴权-请求是否带上token
-            if(StringUtils.isEmpty(idoc_token)||StringUtils.isEmpty(operation)){
-                System.out.println("idoc_token and operation不能为空");
+            if(StringUtils.isEmpty(idoc_token)||StringUtils.isEmpty(operation)||StringUtils.isEmpty(ip)){
                 //没有客户端数据库，禁止访问
                 requestContext.setSendZuulResponse(false);
                 requestContext.setResponseStatusCode(HttpStatus.UNAUTHORIZED.value());
@@ -120,29 +122,20 @@ public class LoginFilter extends ZuulFilter {
                 User user = jwtUtil.decode(idoc_token, User.class);
                 //二层鉴权-token是否正确
                 if(user != null
-                        &redisClient.getExpire(user.getDb_name()+":login:token:"+user.getUserCode())>15
-                        &&redisClient.get(user.getDb_name()+":login:token:"+user.getUserCode()).equals(idoc_token)){
-                        //鉴权通过，重新设置有效时间30分钟
-                        redisClient.expire(user.getDb_name()+":login:token:"+user.getUserCode(),60*30);
-                        Map<String, List<String>> requestQueryParams = requestContext.getRequestQueryParams();
-                        System.out.println(requestQueryParams.toString());
-                        if(requestQueryParams==null){
-                            requestQueryParams= new HashMap<>();
-                        }
-                        //附加参数
-                        ArrayList<String> paramsList = new ArrayList<>();
-                        paramsList.add(user.getUserCode());
-                        requestQueryParams.put("userCode", paramsList);
-                        paramsList = new ArrayList<>();
-                        paramsList.add(user.getDb_name());
-                        requestQueryParams.put("db_name", paramsList);
-                        paramsList = new ArrayList<>();
-                        paramsList.add(user.getUserId().toString());
-                        requestQueryParams.put("userId", paramsList);
-                        paramsList = new ArrayList<>();
-                        paramsList.add(user.getChineseName());
-                        requestQueryParams.put("chineseName", paramsList);
-                        System.out.println(requestQueryParams.toString());
+//                        &redisClient.getExpire(user.getDb_name()+":login:token:"+user.getUserCode())>15
+                    &&redisClient.get(user.getDb_name()+":login:token:"+user.getUserCode()).equals(idoc_token)){
+                        //鉴权通过，重新设置有效时间30分钟（正式时使用）
+//                        redisClient.expire(user.getDb_name()+":login:token:"+user.getUserCode(),60*30);
+
+                    Map<String, List<String>> requestQueryParams = requestContext.getRequestQueryParams();
+                    if(requestQueryParams==null){
+                        requestQueryParams= new HashMap<>();
+                    }
+                    //附加参数
+                    ArrayList<String> paramsList = new ArrayList<>();
+                    paramsList = new ArrayList<>();
+                    paramsList.add(idoc_token);
+                    requestQueryParams.put("idoc_token", paramsList);
                 }else {
                     requestContext.setSendZuulResponse(false);
                     requestContext.setResponseStatusCode(HttpStatus.UNAUTHORIZED.value());

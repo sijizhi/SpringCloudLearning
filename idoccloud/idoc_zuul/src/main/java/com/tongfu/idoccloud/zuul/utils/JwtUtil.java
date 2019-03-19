@@ -96,9 +96,7 @@ public class JwtUtil {
                     //设置需要解析的jwt
                     .parseClaimsJws(jwt).getBody();
             ObjectMapper objectMapper=new ObjectMapper();
-            System.out.println("jwt>>>decode>>"+(String) claims.get(PAYLOAD));
             return  objectMapper.readValue((String) claims.get(PAYLOAD), tClass);
-           // return null;
         }catch (Exception e){
             logger.error("idoc_token error");
             return null;

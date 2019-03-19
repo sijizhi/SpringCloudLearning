@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -34,13 +35,13 @@ public class SystemFeignFallback implements SystemFeign {
     private InformError informError;
 
     @Override
-    public User login(User user,String db_name) {
+    public User login( String  userCode,  String  password,  String db_name) {
         informError.sendInform("trongfu:errorInform:login","/api/user/v1/login登录调用服务失败！");
         return new User();
     }
 
     @Override
-    public Object checkPassword(User user, String db_name) {
+    public Object checkPassword( String  userCode,String password,  String idoc_token) {
         informError.sendInform("trongfu:errorInform:checkPassword","/api/user/v1/checkPassword密码检测调用服务失败！");
         return MapVo.returnMap("check",false );
     }

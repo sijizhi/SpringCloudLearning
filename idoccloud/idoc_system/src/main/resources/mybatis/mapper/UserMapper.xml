@@ -11,7 +11,8 @@
             chinese_Name,
             english_Name,
             user_code,
-            password
+            password,
+            depart_id
         FROM
             USER
         WHERE

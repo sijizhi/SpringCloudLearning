@@ -18,9 +18,13 @@ import java.util.Map;
 public interface SystemFeign {
 
     @PostMapping(value = "/api/user/v1/login",consumes = "application/json")
-    public User login(@RequestBody User  user,@RequestParam("db_name") String db_name);
+    public User login(@RequestParam("userCode") String  userCode,
+                      @RequestParam("password") String  password,
+                      @RequestParam("db_name") String db_name);
 
-    @PostMapping(value = "/api/user/v1/checkPassword",consumes = "application/json")
-    public Object checkPassword(@RequestBody User  user, @RequestParam("db_name") String db_name);
+    @PostMapping(value = "/api/user/v1/checkPassword")
+    public Object checkPassword(@RequestParam("userCode") String  userCode,
+                                @RequestParam("password") String password,
+                                @RequestParam("idoc_token") String idoc_token);
 }
 

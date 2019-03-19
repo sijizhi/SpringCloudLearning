@@ -20,13 +20,13 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/login")
-    public User login(@RequestBody User  user){
+    public User login(User  user){
         System.out.println("》》》》》》》》》》》》》》》》》测试拉拉"+user);
         return  userService.login(user);
     }
 
     @PostMapping("/checkPassword")
-    public Object checkPassword(@RequestBody User  user){
+    public Object checkPassword( User user){
         System.out.println("》》》》》》》》》》》》》》》》》checkPassword"+user);
         return MapVo.returnMap("check", userService.checkPassword(user));
     }

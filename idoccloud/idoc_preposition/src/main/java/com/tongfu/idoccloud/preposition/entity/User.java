@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Date;
 
@@ -14,6 +15,7 @@ import java.util.Date;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Getter
 @Setter
+@ToString
 public class User {
     /**
      * 用户id
@@ -100,19 +102,13 @@ public class User {
      * 令牌
      */
     private String idoc_token;
-
+    /**
+     * ip地址
+     */
+    private String ip;
 
     public User() {
     }
 
 
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", userCode='" + userCode + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 }

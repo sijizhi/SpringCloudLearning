@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 
@@ -34,19 +35,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(User user) {
         String loginPass=user.getPassword();
+        System.out.println("loginPass>>>>"+passwordEncoder.encode(loginPass));
         user=userMapper.login(user);
-        //比较密码是否正确
-        if(passwordEncoder.matches(loginPass, user.getPassword())){
-            user.setPassword("");
-            String db_name=DbUtil.getDbName();
-            user.setDb_name(db_name);
-            String token= jwtUtil.encode(user, 1000*60*60*24);
-            User tokenUser = jwtUtil.decode(token, User.class );
-            //保存登录信息30分钟
-            redisClient.set(db_name+":login:token:"+user.getUserCode(), token, 60*30);
-            user.setIdoc_token(token);
-            user.setDb_name("");
+        if(!StringUtils.isEmpty(user)){
+            //比较密码是否正确
+            if(passwordEncoder.matches(loginPass, user.getPassword())){
+                user.setPassword("");
+                String db_name=DbUtil.getDbName();
+                user.setDb_name(db_name);
+
+                //              String token= jwtUtil.encode(user, 1000*60*60*24);
+                String token= jwtUtil.encode(user, 1000*60*60*24*365);
+                //保存登录信息30分钟
+//                redisClient.set(db_name+":login:token:"+user.getUserCode(), token, 60*30);
+                redisClient.set(db_name+":login:token:"+user.getUserCode(), token);
+                user.setIdoc_token(token);
+                user.setDb_name("");
+            }
         }
+
 
         return user;
     }
