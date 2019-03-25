@@ -1,0 +1,425 @@
+{
+	"info": {
+		"_postman_id": "d2d1d664-2c1a-46e3-b386-849576f1557e",
+		"name": "A-idocCloud正式",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "系统服务",
+			"item": [
+				{
+					"name": "个人中心",
+					"item": [
+						{
+							"name": "密码-校验",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "idoc_token",
+										"value": "eyJhbGciOiJIUzI1NiJ9.eyJwYXlsb2FkIjoie1widXNlcklkXCI6MixcImNoaW5lc2VOYW1lXCI6XCLlvIDlj5HogIXmtYvor5VcIixcImVuZ2xpc2hOYW1lXCI6XCJhZG1pblwiLFwiZGVwYXJ0SWRcIjoxLFwidXNlckNvZGVcIjpcImFkbWluXCIsXCJpbml0U3RhdHVzXCI6MSxcImhlYWRQb3J0cmFpdFwiOlwiL2FkZGYvZmRhL2RmYS9qYXNkZlwiLFwidGhlbWVcIjpcIjFcIixcImRiX25hbWVcIjpcInpoaXNpamllXCJ9IiwiZXhwIjoxNTU0NDU5NTcwLCJpYXQiOjE1NTI5ODgzNDF9.cDpgHYcdmfsmwoadGH_aC7lRnhvjuVwadcCQbVw2vQI",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8200/tongfu-pre/uniteapi/sys/v1/usr/operation?userCode=admin&password=abc123&operation=checkPassword&ip=192.168.168.168",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8200",
+									"path": [
+										"tongfu-pre",
+										"uniteapi",
+										"sys",
+										"v1",
+										"usr",
+										"operation"
+									],
+									"query": [
+										{
+											"key": "userCode",
+											"value": "admin"
+										},
+										{
+											"key": "password",
+											"value": "abc123"
+										},
+										{
+											"key": "operation",
+											"value": "checkPassword"
+										},
+										{
+											"key": "ip",
+											"value": "192.168.168.168"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "修改密码",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "idoc_token",
+										"value": "eyJhbGciOiJIUzI1NiJ9.eyJwYXlsb2FkIjoie1widXNlcklkXCI6MixcImNoaW5lc2VOYW1lXCI6XCLlvIDlj5HogIXmtYvor5VcIixcImVuZ2xpc2hOYW1lXCI6XCJhZG1pblwiLFwiZGVwYXJ0SWRcIjoxLFwidXNlckNvZGVcIjpcImFkbWluXCIsXCJpbml0U3RhdHVzXCI6MSxcImhlYWRQb3J0cmFpdFwiOlwiL2FkZGYvZmRhL2RmYS9qYXNkZlwiLFwidGhlbWVcIjpcIjFcIixcImRiX25hbWVcIjpcInpoaXNpamllXCIsXCJpcFwiOlwiMTIzMTIzXCIsXCJkZXZpY2VOdW1iZXJcIjpcIuacquefpeiuvuWkh-WPt1wifSIsImV4cCI6MTU1NDYxOTQyNywiaWF0IjoxNTUzMTQ4MTk4fQ.82y7uMYVkCiF2-lvSjjhMJQbw47H4xrHwOmjvejuutY",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8200/tongfu-pre/uniteapi/sys/v1/usr/operation?userCode=sijie.zhi&password=abc123&operation=updatePass",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8200",
+									"path": [
+										"tongfu-pre",
+										"uniteapi",
+										"sys",
+										"v1",
+										"usr",
+										"operation"
+									],
+									"query": [
+										{
+											"key": "userCode",
+											"value": "sijie.zhi"
+										},
+										{
+											"key": "password",
+											"value": "abc123"
+										},
+										{
+											"key": "operation",
+											"value": "updatePass"
+										},
+										{
+											"key": "ip",
+											"value": "192.168.168.168",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "首页界面",
+					"item": [
+						{
+							"name": "修改初始密码",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "idoc_token",
+										"value": "eyJhbGciOiJIUzI1NiJ9.eyJwYXlsb2FkIjoie1widXNlcklkXCI6MSxcImNoaW5lc2VOYW1lXCI6XCLmpI3mgJ3mnbBcIixcImVuZ2xpc2hOYW1lXCI6XCJzaWppZS56aGlcIixcImRlcGFydElkXCI6MSxcInVzZXJDb2RlXCI6XCJzaWppZS56aGlcIixcImluaXRTdGF0dXNcIjowLFwiaGVhZFBvcnRyYWl0XCI6XCIvYWRkZi9mZGEvZGZhL2phc2RmXCIsXCJ0aGVtZVwiOlwiMFwiLFwiZGJfbmFtZVwiOlwiemhpc2lqaWVcIixcImlwXCI6XCIxOTIuMTY4LjE2OC4xNjhcIixcImRldmljZU51bWJlclwiOlwi5pyq55-l6K6-5aSH5Y-3XCJ9IiwiZXhwIjoxNTU0NjIzMTEyLCJpYXQiOjE1NTMxNTE4ODN9.enEviF9my5scWd6z9oadTC5Vf9SbyaBRbBF-i3loIvo",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8200/tongfu-pre/uniteapi/sys/v1/usr/operation?userCode=sijie.zhi&password=sijie.zhi&operation=updatePass",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8200",
+									"path": [
+										"tongfu-pre",
+										"uniteapi",
+										"sys",
+										"v1",
+										"usr",
+										"operation"
+									],
+									"query": [
+										{
+											"key": "userCode",
+											"value": "sijie.zhi"
+										},
+										{
+											"key": "password",
+											"value": "sijie.zhi"
+										},
+										{
+											"key": "operation",
+											"value": "updatePass"
+										},
+										{
+											"key": "ip",
+											"value": "192.168.168.168",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "公司信息",
+					"item": [
+						{
+							"name": "获取公司信息",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "idoc_token",
+										"value": "eyJhbGciOiJIUzI1NiJ9.eyJwYXlsb2FkIjoie1widXNlcklkXCI6MixcImNoaW5lc2VOYW1lXCI6XCLlvIDlj5HogIXmtYvor5VcIixcImVuZ2xpc2hOYW1lXCI6XCJhZG1pblwiLFwiZGVwYXJ0SWRcIjoxLFwidXNlckNvZGVcIjpcImFkbWluXCIsXCJpbml0U3RhdHVzXCI6MSxcImhlYWRQb3J0cmFpdFwiOlwiL2FkZGYvZmRhL2RmYS9qYXNkZlwiLFwidGhlbWVcIjpcIjFcIixcImRiX25hbWVcIjpcInpoaXNpamllXCIsXCJpcFwiOlwiMTIzMTIzXCIsXCJkZXZpY2VOdW1iZXJcIjpcIuacquefpeiuvuWkh-WPt1wifSIsImV4cCI6MTU1NDYxOTQyNywiaWF0IjoxNTUzMTQ4MTk4fQ.82y7uMYVkCiF2-lvSjjhMJQbw47H4xrHwOmjvejuutY",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8200/tongfu-pre/uniteapi/sys/v1/company/operation?operation=getCompanyInfo",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8200",
+									"path": [
+										"tongfu-pre",
+										"uniteapi",
+										"sys",
+										"v1",
+										"company",
+										"operation"
+									],
+									"query": [
+										{
+											"key": "operation",
+											"value": "getCompanyInfo"
+										},
+										{
+											"key": "ip",
+											"value": "192.168.168.168",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "更新公司信息",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "idoc_token",
+										"value": "eyJhbGciOiJIUzI1NiJ9.eyJwYXlsb2FkIjoie1widXNlcklkXCI6MixcImNoaW5lc2VOYW1lXCI6XCLlvIDlj5HogIXmtYvor5VcIixcImVuZ2xpc2hOYW1lXCI6XCJhZG1pblwiLFwiZGVwYXJ0SWRcIjoxLFwidXNlckNvZGVcIjpcImFkbWluXCIsXCJpbml0U3RhdHVzXCI6MSxcImhlYWRQb3J0cmFpdFwiOlwiL2FkZGYvZmRhL2RmYS9qYXNkZlwiLFwidGhlbWVcIjpcIjFcIixcImRiX25hbWVcIjpcInpoaXNpamllXCIsXCJpcFwiOlwiMTIzMTIzXCIsXCJkZXZpY2VOdW1iZXJcIjpcIuacquefpeiuvuWkh-WPt1wifSIsImV4cCI6MTU1NDYxOTQyNywiaWF0IjoxNTUzMTQ4MTk4fQ.82y7uMYVkCiF2-lvSjjhMJQbw47H4xrHwOmjvejuutY",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8200/tongfu-pre/uniteapi/sys/v1/company/operation?operation=updateCompanyInfo&companyName=上海同富信息科技有限公司&enName=ydsafasgsaf",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8200",
+									"path": [
+										"tongfu-pre",
+										"uniteapi",
+										"sys",
+										"v1",
+										"company",
+										"operation"
+									],
+									"query": [
+										{
+											"key": "operation",
+											"value": "updateCompanyInfo"
+										},
+										{
+											"key": "ip",
+											"value": "192.168.168.168",
+											"disabled": true
+										},
+										{
+											"key": "companyName",
+											"value": "上海同富信息科技有限公司"
+										},
+										{
+											"key": "enName",
+											"value": "ydsafasgsaf"
+										},
+										{
+											"key": "updateBy",
+											"value": "2",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "网关-登录",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8200/tongfu-pre/uniteapi/sys/v1/usr/login?userCode=sijie.zhi&password=abc123&db_name=zhisijie&ip=192.168.168.168&deviceNumber=未知设备号",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8200",
+							"path": [
+								"tongfu-pre",
+								"uniteapi",
+								"sys",
+								"v1",
+								"usr",
+								"login"
+							],
+							"query": [
+								{
+									"key": "userCode",
+									"value": "sijie.zhi"
+								},
+								{
+									"key": "password",
+									"value": "abc123"
+								},
+								{
+									"key": "db_name",
+									"value": "zhisijie"
+								},
+								{
+									"key": "ip",
+									"value": "192.168.168.168"
+								},
+								{
+									"key": "deviceNumber",
+									"value": "未知设备号"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "网关-登录-开发者测试",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8200/tongfu-pre/uniteapi/sys/v1/usr/login?userCode=admin&password=abc123&db_name=zhisijie&ip=123123&deviceNumber=未知设备号",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8200",
+							"path": [
+								"tongfu-pre",
+								"uniteapi",
+								"sys",
+								"v1",
+								"usr",
+								"login"
+							],
+							"query": [
+								{
+									"key": "userCode",
+									"value": "admin"
+								},
+								{
+									"key": "password",
+									"value": "abc123"
+								},
+								{
+									"key": "db_name",
+									"value": "zhisijie"
+								},
+								{
+									"key": "ip",
+									"value": "123123"
+								},
+								{
+									"key": "deviceNumber",
+									"value": "未知设备号"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "前置登录",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8300/unite/sys/v1/unite1?userCode=sijie.zhi",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8300",
+					"path": [
+						"unite",
+						"sys",
+						"v1",
+						"unite1"
+					],
+					"query": [
+						{
+							"key": "userCode",
+							"value": "sijie.zhi"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

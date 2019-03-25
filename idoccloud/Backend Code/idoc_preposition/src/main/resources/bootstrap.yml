@@ -1,0 +1,115 @@
+server:
+  port: 8300
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    max-connections: 20000
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8000/eureka/
+  #      defaultZone: http://39.98.206.180:8761/eureka/
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+
+
+spring:
+  application:
+    name: preposition-service
+  zipkin:
+    base-url: http://39.98.206.180:9411/
+    enabled: true
+    sender:
+      type: web
+  #配置采样百分比,开发环境可以设置为1，表示全部，生产就用默认
+  sleuth:
+    sampler:
+      probability: 1
+  #配置rabbitmq
+  rabbitmq:
+    host: 39.98.206.180
+    port: 5672
+    username: guest
+    password: guest
+  #mysql connetion
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://47.100.115.31:8066
+    password: 123456
+    username: root
+    tomcat:
+      #连接池空闲连接的有效时间 ，设置30分钟
+      min-evictable-idle-time-millis: 1800000
+  #druid pool standard config
+  druid:
+    max-active: 300
+    initial-size: 3
+    min-idle: 3
+    max-wait: 12000
+    time-between-eviction-runs-millis: 60000
+    min-evictable-idle-time-millis: 30000
+    pool-prepared-statements: true
+
+    validation-query: select 1 from dual
+    test-while-idle: true
+    test-on-borrow: false
+    test-on-return: false
+  redis:
+    host: 47.100.115.31
+    port: 6379
+    password: Sijie.zhi
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: CONFIG-SERVICE
+#      profile: test
+#      label: master
+#暴露全部的监控信息
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+
+
+#默认optons readtimeout是60，但是由于hystrix默认是1秒超时
+#修改调用超时时间
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        #此个配置似乎是ribbon的配置超时时间
+        connectTimeout: 5000
+        readTimeout: 5000
+
+#默认一秒，如果延时可以稍微设长一点
+ribbon:
+  ReadTimeout: 120000
+  ConnectTimeout: 30000
+# hystrix 超时时间设置
+hystrix:
+  threadpool:
+    default:
+      coreSize: 600 # default 10 并发执行的最大线程数
+      maxQueueSize: 800 # limit 最大队列数 can't active change
+      queueSizeRejectionThreshold: 700 #队列数 can active change
+  command:
+    default:
+      timeout:
+        enable: true
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 12000 #timeout ms
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: com.tongfu.idoccloud.preposition.entity
+  config-location: classpath:mybatis/mybatis-config.xml
+
+jwt:
+  secret: tongfu.secret.#!$@%&^%%#!$@%$%^%&^*&GRGEWRT@#@!$T$%GSDFDSFGQWERQGREWH$%#$@#$!@RFSADGEW$T@$!@#REGSDFSDAF

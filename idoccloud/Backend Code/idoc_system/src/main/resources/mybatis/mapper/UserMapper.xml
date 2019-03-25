@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--author： Zhi siJie -->
+<mapper namespace="com.tongfu.idoccloud.system.mapper.UserMapper">
+    <!--登录 -->
+    <select id="login" resultType="user" parameterType="user">
+        SELECT
+            user_Id,
+            chinese_Name,
+            english_Name,
+            user_code,
+            PASSWORD,
+            depart_id,
+            init_status,
+            head_portrait,
+            theme
+        FROM
+            USER
+        WHERE
+            STATUS = 1
+        AND user_code = #{userCode}
+    </select>
+    <!-- ,init_status = 0 -->
+    <update id="changeInitPass" parameterType="user">
+        UPDATE USER
+        SET `password` = #{password},
+        update_by = #{userId},
+        update_date = #{updateDate}
+        ,init_status = 0
+        WHERE
+            STATUS = 1
+        AND user_Code = #{userCode}
+    </update>
+
+</mapper>
